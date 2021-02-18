@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+  </style>
+
+  <title>Image Gallary</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/icon.png">
+  <!-- https://google.github.io/material-design-icons/#icon-font-for-the-web -->
+  <!-- Using via Google Web Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <!-- https://tailwindcss.com/docs/installation -->
+  <!-- Using Tailwind via CDN -->
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+
+  <!-- https://v3.vuejs.org/guide/installation.html#release-notes -->
+  <!-- Vue CDN -->
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body style="font-family: 'Kanit', sans-serif;">
+
+  <div class="container" id="app" style="background-color:burlywood; margin-top: 50px;">
+    <h3 class="p-6 inline-block">Total Photo ( {{ picture.length }} )</h3>
+
+    <button v-on:click="toggleSearch" v-show="!useSearch" class="inline-block float-right pt-5 pr-5">
+      <span class="material-icons">
+        search
+      </span>
+    </button>
+
+    <div v-show="useSearch" class="inline-block float-right pt-5 pr-5">
+      <input v-model="inputSearch" placeholder="search something ...">
+      <button v-on:click="toggleSearch" class="btn btn-danger btn-sm ml-2">cancel</button>
+    </div>
+    <p v-show="useSearch">Search result : {{filterSearch}}</p>
+    <p>Discription : click like button to support photographer, double click picture frame to view picture.</p>
+
+    <div v-show="hasView" class="grid justify-items-stretch flex flex-col  p-3 m-2" style="background-color:#21211f;">
+            <span class="material-icons" style="color: white;" v-on:click="hasView=!hasView">
+              disabled_by_default
+              </span>
+          <img v-bind:src="viewImg" style="width: 80%;" class="justify-self-center"/>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-4" v-for="(pic,index) in choosePicture">
+        <div class="content">
+          <a class="space-x-4" @dblclick="toggleView(index)">
+            <img class="content-image" v-bind:src="pic.url">
+          </a>
+          <div class="content-details fadeIn-bottom">
+            <div>
+              <h3 class="content-title inline-block">{{pic.title}} </h3>
+              <img class="inline-block ml-3" style="margin-top: -5px;" width="25" v-show="pic.like" height="30"
+                width="30" src="./images/like.png" class="z-10" />
+              <button v-on:click="toggleLike(index)"
+                class="inline-block float-right m-1 w-16 h-8 rounded-md bg-blue-400 text-white text-md hover:shadow hover:bg-blue-600">Like</button>
+            </div>
+            <p class="content-text"><i class="fa fa-map-marker"></i> {{pic.country}}</p>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+      <!-- my main.js -->
+      <script src="./main.js"></script>
+</body>
+
+</html>
