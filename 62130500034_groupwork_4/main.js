@@ -8,6 +8,7 @@ const app = {
                 ],
         filterResult:null,
         useSearch : false,
+        resultNull: false,
         hasView : false,
         viewImg:'',
         inputSearch:''
@@ -30,6 +31,11 @@ const app = {
     computed:{
         filterSearch(){
             this.filterResult = this.picture.filter(pic => pic.title.toLowerCase().search(this.inputSearch.toLowerCase()) > -1);
+            if(this.filterResult == false){
+                this.resultNull = true;
+            }else{
+                this.resultNull = false;
+            }
             return this.inputSearch;
     },
      choosePicture(){

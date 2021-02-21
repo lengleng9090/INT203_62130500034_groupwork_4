@@ -51,7 +51,7 @@
               </span>
           <img v-bind:src="viewImg" style="width: 80%;" class="justify-self-center"/>
     </div>
-    
+    <h2 v-show="resultNull">Pic not found</h2>
     <div class="row">
       <div class="col-md-4" v-for="(pic,index) in choosePicture">
         <div class="content">
